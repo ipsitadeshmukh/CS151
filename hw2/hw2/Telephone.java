@@ -33,19 +33,35 @@ public class Telephone
    public void run(Connection c)
    {
       boolean more = true;
+      int lineCount = 1;
       while (more)
       {
          String input = scanner.nextLine();
-         if (input == null) return;
          if (input.equalsIgnoreCase("H"))
-            c.hangup();
-         else if (input.equalsIgnoreCase("Q"))
-            more = false;
+             c.hangup();
+         if (input == null) return;
+         if(input.length()==0) {
+        	 	System.out.println("Invalid entry");
+       		c.resetConnection();
+       		more = false;
+         }
+         else if("1234567890#".contains(input) == false ) {
+      		System.out.println("Invalid entry");
+      		c.resetConnection();
+      		more = false;
+         }
+         else if( input.equals("#") && lineCount == 1) {
+     		System.out.println("Invalid entry");
+     		c.resetConnection();
+     		more = false;
+         }
          else if (input.length() == 1
             && "1234567890#".contains(input))
-            c.dial(input);
+        		//&& "#".contains(input) && lineCount > 1)
+         c.dial(input); 
          else
             c.record(input);
+         lineCount++;
       }
    }
 

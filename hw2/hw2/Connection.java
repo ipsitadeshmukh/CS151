@@ -61,12 +61,13 @@ public class Connection
       Reset the connection to the initial state and prompt
       for mailbox number
    */
-   private void resetConnection()
+   public void resetConnection()
    {
       currentRecording = "";
       accumulatedKeys = "";
       state = CONNECTED;
       phone.speak(INITIAL_PROMPT);
+      phone.run(this);
    }
 
    /**
