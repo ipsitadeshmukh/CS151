@@ -55,20 +55,36 @@ public class Telephone
         		 c.dial(input);
         	 }
         	 else{
-        		 speak("Invalid entry! Please type 1 or 2");
+        		 speak("Invalid entry! Enter 1 or 2");
         	 }
          }
          
          else{
-        	 c.setFirstInput(false);
+        	 	c.setFirstInput(false);
 	         if (input == null) return;
 	         if (input.equalsIgnoreCase("H"))
 	            c.hangup();
+	         if(!c.getMailboxNumberGiven())
+	         {
+	        	   if("1234567890#".contains(input)==false)
+	        	   {
+	        		   System.out.println("Incorrect mailbox number. Please enter numbers properly. Connection will be reset");
+	        		   c.resetConnection();
+	        	   }
+	        		   
+	            else if (input.length() == 1 && "1234567890#".contains(input))
+	        	 		c.dial(input);
+	        	 	else
+	        	 		c.record(input);
+	         }
 	         else if (input.equalsIgnoreCase("Q"))
 	            more = false;
 	         else if (input.length() == 1
 	            && "1234567890#".contains(input))
-	            c.dial(input);
+	            {
+	        	 		c.setMailboxNumberGiven(true);
+	        	 		c.dial(input);
+	            }
 	         else
 	            c.record(input);
          }

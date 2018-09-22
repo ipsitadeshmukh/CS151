@@ -65,13 +65,14 @@ public class Connection
       Reset the connection to the initial state and prompt
       for mailbox number
    */
-   private void resetConnection()
+   public void resetConnection()
    {
       currentRecording = "";
       accumulatedKeys = "";
       //state = CONNECTED;
       didReset = true;
       firstInput = false;
+      mailboxNumberGiven = false;
       phone.speak(INITIAL_PROMPT);
    }
 
@@ -220,8 +221,8 @@ public class Connection
       }
    }
    
-   public void setFirstInput(Boolean bool){
-	   firstInput = bool;
+   public void setFirstInput(Boolean b){
+	   firstInput = b;
    }
    
    public Boolean getFirstInput(){
@@ -248,6 +249,14 @@ public class Connection
 	   accumulatedKeys = "";
    }
 
+   public Boolean getMailboxNumberGiven() {
+	   return mailboxNumberGiven;
+   }
+   
+   public void setMailboxNumberGiven(Boolean b) {
+	   mailboxNumberGiven = b;
+   }
+   
    private MailSystem system;
    private Mailbox currentMailbox;
    private String currentRecording;
@@ -257,7 +266,8 @@ public class Connection
    
    private Boolean didReset = false;
    private Boolean firstInput = false;
-
+   private static boolean mailboxNumberGiven = false;
+   
    private static final int DISCONNECTED = 0;
    private static final int CONNECTED = 1;
    private static final int RECORDING = 2;
@@ -266,6 +276,7 @@ public class Connection
    private static final int CHANGE_PASSCODE = 5;
    private static final int CHANGE_GREETING = 6;
    private static final int MAILBOX_ACCESS = 7;
+   
 
    private static final String INITIAL_PROMPT = 
 		   "To leave a message, press (1), to access your mailbox, press (2)";
