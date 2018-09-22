@@ -50,7 +50,7 @@ public class Telephone
         		 speak(ACCESS_YOUR_MAILBOX_PROMPT);
         		 //enter the mailbox to access
         		 c.setState(7);
-        		 c.setDidReset(false);
+        		 c.setDidReset(false); 
         		 c.setFirstInput(true);
         		 c.dial(input);
         	 }
@@ -64,16 +64,19 @@ public class Telephone
 	         if (input == null) return;
 	         if (input.equalsIgnoreCase("H"))
 	            c.hangup();
-	         if(!c.getMailboxNumberGiven())
+	         if(!c.getMailboxNumberGiven()) //Checks if mailbox number is given yet
 	         {
-	        	   if("1234567890#".contains(input)==false)
+	        	   if("1234567890#".contains(input)==false) //if not, resets connection
 	        	   {
 	        		   System.out.println("Incorrect mailbox number. Please enter numbers properly. Connection will be reset");
 	        		   c.resetConnection();
 	        	   }
 	        		   
 	            else if (input.length() == 1 && "1234567890#".contains(input))
-	        	 		c.dial(input);
+	            {
+        	 			c.setMailboxNumberGiven(true);
+        	 			c.dial(input);
+	            }        
 	        	 	else
 	        	 		c.record(input);
 	         }
@@ -84,7 +87,7 @@ public class Telephone
 	            {
 	        	 		c.setMailboxNumberGiven(true);
 	        	 		c.dial(input);
-	            }
+	            } 
 	         else
 	            c.record(input);
          }
