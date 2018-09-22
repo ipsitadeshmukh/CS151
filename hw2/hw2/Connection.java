@@ -25,7 +25,9 @@ public class Connection
    {
       if (state == CONNECTED)
          connect(key);
-      else if (state == RECORDING)
+      else if (state == RECORDING) 
+         login(key);
+      else if(state == MAILBOX_ACCESS)
          login(key);
       else if (state == CHANGE_PASSCODE)
          changePasscode(key);
@@ -56,18 +58,21 @@ public class Connection
          currentMailbox.addMessage(new Message(currentRecording));
       resetConnection();
    }
+   
+  
 
    /**
       Reset the connection to the initial state and prompt
       for mailbox number
    */
-   public void resetConnection()
+   private void resetConnection()
    {
       currentRecording = "";
       accumulatedKeys = "";
-      state = CONNECTED;
+      //state = CONNECTED;
+      didReset = true;
+      firstInput = false;
       phone.speak(INITIAL_PROMPT);
-      phone.run(this);
    }
 
    /**
@@ -84,12 +89,16 @@ public class Connection
             state = RECORDING;
             phone.speak(currentMailbox.getGreeting());
          }
-         else
+         else{
             phone.speak("Incorrect mailbox number. Try again!");
+            resetConnection();
+         }
          accumulatedKeys = "";
       }
-      else
-         accumulatedKeys += key;
+      else{
+    	  if(firstInput == false)
+    		  accumulatedKeys += key;
+      }
    }
 
    /**
@@ -98,8 +107,9 @@ public class Connection
    */
    private void login(String key)
    {
-      if (key.equals("#"))
+      if (key.equals("#") && state != RECORDING)
       {
+    	 currentMailbox = system.findMailbox(accumulatedKeys);
          if (currentMailbox.checkPasscode(accumulatedKeys))
          {
             state = MAILBOX_MENU;
@@ -109,8 +119,10 @@ public class Connection
             phone.speak("Incorrect passcode. Try again!");
          accumulatedKeys = "";
       }
-      else
-         accumulatedKeys += key;
+      else{
+    	  if(firstInput == false)
+    		  accumulatedKeys += key;
+      }
    }
 
    /**
@@ -166,6 +178,10 @@ public class Connection
          state = CHANGE_GREETING;
          phone.speak("Record your greeting, then press the # key");
       }
+      else{
+    	  accumulatedKeys = "";
+    	  phone.speak(MAILBOX_MENU_TEXT);
+      }
    }
 
    /**
@@ -198,6 +214,38 @@ public class Connection
          state = MAILBOX_MENU;
          phone.speak(MAILBOX_MENU_TEXT);
       }
+      else{
+    	  accumulatedKeys = "";
+    	  phone.speak(MESSAGE_MENU_TEXT);
+      }
+   }
+   
+   public void setFirstInput(Boolean bool){
+	   firstInput = bool;
+   }
+   
+   public Boolean getFirstInput(){
+	   return firstInput;
+   }
+   
+   public Boolean getDidReset(){
+	   return didReset;
+   }
+   
+   public void setDidReset(Boolean state){
+	   didReset = state;
+   }
+   
+   public int getState(){
+	   return state;
+   }
+   
+   public void setState(int s){
+	   state = s;
+   }
+   
+   public void clearAccumulatedKeys(){
+	   accumulatedKeys = "";
    }
 
    private MailSystem system;
@@ -206,6 +254,9 @@ public class Connection
    private String accumulatedKeys;
    private Telephone phone;
    private int state;
+   
+   private Boolean didReset = false;
+   private Boolean firstInput = false;
 
    private static final int DISCONNECTED = 0;
    private static final int CONNECTED = 1;
@@ -214,9 +265,14 @@ public class Connection
    private static final int MESSAGE_MENU = 4;
    private static final int CHANGE_PASSCODE = 5;
    private static final int CHANGE_GREETING = 6;
+   private static final int MAILBOX_ACCESS = 7;
 
    private static final String INITIAL_PROMPT = 
-         "Enter mailbox number followed by #";      
+		   "To leave a message, press (1), to access your mailbox, press (2)";
+   private static final String RECORD_MESSAGE_PROMPT = 
+         "Enter mailbox number followed by #"; 
+   private static final String ACCESS_YOUR_MAILBOX_PROMPT = 
+	         "Please enter your mailbox number followed by #";
    private static final String MAILBOX_MENU_TEXT = 
          "Enter 1 to listen to your messages\n"
          + "Enter 2 to change your passcode\n"

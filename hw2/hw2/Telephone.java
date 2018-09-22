@@ -33,37 +33,51 @@ public class Telephone
    public void run(Connection c)
    {
       boolean more = true;
-      int lineCount = 1;
       while (more)
       {
          String input = scanner.nextLine();
-         if (input.equalsIgnoreCase("H"))
-             c.hangup();
-         if (input == null) return;
-         if(input.length()==0) {
-        	 	System.out.println("Invalid entry");
-       		c.resetConnection();
-       		more = false;
+         if(c.getDidReset() == true)
+         {
+        	 if(input.equals("1")){
+        		 speak(RECORD_MESSAGE_PROMPT);
+        		 //change state to connected
+        		 c.setState(1);
+        		 c.setFirstInput(true);
+        		 c.setDidReset(false);
+        		 c.dial(input);
+        	 }
+        	 else if(input.equals("2")){
+        		 speak(ACCESS_YOUR_MAILBOX_PROMPT);
+        		 //enter the mailbox to access
+        		 c.setState(7);
+        		 c.setDidReset(false);
+        		 c.setFirstInput(true);
+        		 c.dial(input);
+        	 }
+        	 else{
+        		 speak("Invalid entry! Please type 1 or 2");
+        	 }
          }
-         else if("1234567890#".contains(input) == false ) {
-      		System.out.println("Invalid entry");
-      		c.resetConnection();
-      		more = false;
+         
+         else{
+        	 c.setFirstInput(false);
+	         if (input == null) return;
+	         if (input.equalsIgnoreCase("H"))
+	            c.hangup();
+	         else if (input.equalsIgnoreCase("Q"))
+	            more = false;
+	         else if (input.length() == 1
+	            && "1234567890#".contains(input))
+	            c.dial(input);
+	         else
+	            c.record(input);
          }
-         else if( input.equals("#") && lineCount == 1) {
-     		System.out.println("Invalid entry");
-     		c.resetConnection();
-     		more = false;
-         }
-         else if (input.length() == 1
-            && "1234567890#".contains(input))
-        		//&& "#".contains(input) && lineCount > 1)
-         c.dial(input); 
-         else
-            c.record(input);
-         lineCount++;
       }
    }
 
+   private static final String RECORD_MESSAGE_PROMPT = 
+	         "Enter mailbox number followed by #"; 
+   private static final String ACCESS_YOUR_MAILBOX_PROMPT = 
+		         "Please enter your passcode followed by #";
    private Scanner scanner;
 }
