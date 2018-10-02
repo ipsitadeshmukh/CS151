@@ -17,13 +17,16 @@ public class CarZoom {
 		JButton zoomIn = new JButton("Zoom In");
 		JButton zoomOut = new JButton("Zoom Out");
 
+		carLabel.setPreferredSize(new Dimension(car.getIconWidth() * 2, car.getIconHeight() * 2));
+		frame.setSize(new Dimension(carLabel.getWidth() * 8, carLabel.getHeight() * 4));
+		
 		zoomIn.addActionListener(event -> {
 			car.setIconWidth(car.getIconWidth() * 2);
 			// Change size of JFrame and JLabel as size of carIcon increases to ensure full
 			// car is displayed.
 			if (carLabel.getHeight() < car.getIconHeight() * 2) {
 				carLabel.setPreferredSize(new Dimension(car.getIconWidth() * 2, car.getIconHeight() * 2));
-				frame.setSize(new Dimension(frame.getWidth() * 2, frame.getHeight() * 2));
+				frame.setSize(new Dimension(frame.getWidth() * 2,frame.getHeight()*2));
 			}
 			carLabel.repaint();
 			// Re-enables zoomOut
@@ -38,9 +41,8 @@ public class CarZoom {
 				zoomOut.setEnabled(false);
 			}
 			car.setIconWidth(car.getIconWidth() * 1 / 2);
-			if (carLabel.getHeight() > car.getIconHeight() * 3) {
+			if (carLabel.getHeight() > car.getIconHeight() * 2) {
 				carLabel.setPreferredSize(new Dimension(car.getIconWidth() * 2, car.getIconHeight() * 2));
-				frame.setSize(new Dimension(frame.getWidth() * 1 / 2, frame.getHeight() * 1 / 2));
 			}
 			carLabel.repaint();
 		});
