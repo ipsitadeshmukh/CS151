@@ -4,13 +4,12 @@ import java.awt.*;
 import javax.swing.*;
 
 public class CarZoom {
+	public static void main(String[] args) {
 
-	final int MINIMUM_WIDTH = 32;
-	JFrame frame;
-	CarIcon car;
-	JLabel carLabel;
-
-	public CarZoom() {
+		final int MINIMUM_WIDTH = 32;
+		JFrame frame;
+		CarIcon car;
+		JLabel carLabel;
 
 		frame = new JFrame();
 		car = new CarIcon(MINIMUM_WIDTH); // Let 32 be the initial width of the carIcon
@@ -27,14 +26,14 @@ public class CarZoom {
 				frame.setSize(new Dimension(frame.getWidth() * 2, frame.getHeight() * 2));
 			}
 			carLabel.repaint();
-			//Re-enables zoomOut
+			// Re-enables zoomOut
 			if (!zoomOut.isEnabled()) {
 				zoomOut.setEnabled(true);
 			}
 		});
 
 		zoomOut.addActionListener(event -> {
-			//Makes sure the car doesn't zoom out too much.
+			// Makes sure the car doesn't zoom out too much.
 			if (car.getIconWidth() <= MINIMUM_WIDTH) {
 				zoomOut.setEnabled(false);
 			}
@@ -55,9 +54,5 @@ public class CarZoom {
 		frame.setPreferredSize(new Dimension(800, 800));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
-	}
-
-	public static void main(String[] args) {
-		CarZoom car1 = new CarZoom();
 	}
 }

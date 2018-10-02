@@ -43,7 +43,7 @@ public class Circle implements Icon {
 	}
 
 	/*
-	 * Allows us to set colour 
+	 * Allows us to set colour
 	 */
 	public void setColor(Color c) {
 		colour = c;
