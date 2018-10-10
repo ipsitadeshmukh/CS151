@@ -14,8 +14,13 @@ public interface LineItem
       @return the description
    */   
    String toString();
-   
+   /**
+    * Returns the quantity of this line item.
+    * @return the quantity
+    */
    int getQty();
-   
-   void setQty(int qty);
+   /**
+    * Increments quantity by 1
+    */
+   void setQty();
 }

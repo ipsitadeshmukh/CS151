@@ -41,7 +41,7 @@ public class Bundle implements LineItem
    }
 
    public int getQty() {return qty; }
-   public void setQty(int qty) { this.qty = qty;} 
+   public void setQty() { qty++;} 
    
    private ArrayList<LineItem> items;
    private int qty; 

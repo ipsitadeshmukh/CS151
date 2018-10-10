@@ -22,9 +22,9 @@ public class Invoice
    */
    public void addItem(LineItem item)
    {
-      
+	   // Checks if item already on invoice. 
 	   if(items.contains(item))
-		   item.setQty(item.getQty()+1);
+		   item.setQty();
 	   else  
 		   items.add(item);
       // Notify all observers of the change to the invoice

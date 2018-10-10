@@ -16,7 +16,7 @@ public class Product implements LineItem
       qty = 1;
    }
    public int getQty() {return qty; }
-   public void setQty(int qty) { this.qty = qty;} 
+   public void setQty() { qty++;} 
    public double getPrice() { return price; }
    public String toString() { return description; }
    private String description;
