@@ -20,7 +20,7 @@ public class NumberSet extends JFrame {
 		textPanel = new JPanel();
 		inputs = new JTextField[7];
 		inputLabel = new JLabel("Change numbers below and press enter ");
-		numbers = new int[] { 1,1,1,1,1,1,1 };
+		numbers = new int[] { 1, 1, 1, 1, 1, 1, 1 };
 		mainPanel.setLayout(new BorderLayout());
 		for (int i = 0; i < 7; i++) {
 			inputs[i] = new JTextField(Integer.toString(numbers[i]), 10);

@@ -12,7 +12,7 @@ public class BarGraph extends JFrame {
 	JPanel graph;
 	Border border = BorderFactory.createLineBorder(Color.WHITE, 2);
 	Border outerBorder = BorderFactory.createLineBorder(Color.WHITE, 12);
-	
+
 	public BarGraph(int[] ar) {
 		this.setLocation(300, 0);
 		graph = new JPanel();
