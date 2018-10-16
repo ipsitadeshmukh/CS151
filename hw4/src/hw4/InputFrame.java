@@ -1,12 +1,15 @@
 package hw4;
 
 import java.awt.*;
+import java.util.ArrayList;
+
 import javax.swing.*;
 
 //The subject
-public class NumberSet extends JFrame {
-
-	int[] numbers;
+public class InputFrame extends JFrame {
+	
+	final int NUMBER_OF_FIELDS;
+	DataSet numbers;
 	JLabel inputLabel;
 	JTextField[] inputs;
 	JButton drawGraph;
@@ -14,23 +17,27 @@ public class NumberSet extends JFrame {
 	JPanel textPanel;
 	BarGraph bargraph;
 
-	public NumberSet() {
+	public InputFrame() {
 
+		int[] initialValues = {1,1,1,1,1,1,1};
+		numbers = new DataSet(initialValues);
+		NUMBER_OF_FIELDS = 7;
 		mainPanel = new JPanel();
 		textPanel = new JPanel();
 		inputs = new JTextField[7];
-		inputLabel = new JLabel("Change numbers below and press enter ");
-		numbers = new int[] { 1, 1, 1, 1, 1, 1, 1 };
+		inputLabel = new JLabel("Change numbers below and press enter ");	
 		mainPanel.setLayout(new BorderLayout());
-		for (int i = 0; i < 7; i++) {
-			inputs[i] = new JTextField(Integer.toString(numbers[i]), 10);
+		for (int i = 0; i < NUMBER_OF_FIELDS; i++) {
+			inputs[i] = new JTextField(Integer.toString(numbers.get(i)), 10);
 			textPanel.add(inputs[i]);
 		}
 		bargraph = new BarGraph(numbers);
 		for (JTextField input : inputs) {
 			input.addActionListener(event -> {
-				for (int i = 0; i < 7; i++) {
-					numbers[i] = Integer.parseInt(inputs[i].getText());
+				for (int i = 0; i < NUMBER_OF_FIELDS; i++) {
+					numbers.remove(i);
+					numbers.add(i,Integer.parseInt(inputs[i].getText()));
+					//numbers.get(i) = Integer.parseInt(inputs[i].getText());
 				}
 				bargraph.update(numbers);
 			});
@@ -45,7 +52,9 @@ public class NumberSet extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		NumberSet instance = new NumberSet();
+		InputFrame inpf = new InputFrame();
 	}
 
+
 }
+
