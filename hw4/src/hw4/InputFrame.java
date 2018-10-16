@@ -39,7 +39,8 @@ public class InputFrame extends JFrame {
 		for (JTextField input : inputs) {
 			int index = inputs.indexOf(input);
 			input.addActionListener(event -> {
-				numbers.updateGraph(index, Integer.parseInt(input.getText()));
+				// Changes data in the data model
+				numbers.changeNumber(index, Integer.parseInt(input.getText()));
 			});
 		}
 

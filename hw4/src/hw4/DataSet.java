@@ -18,6 +18,18 @@ public class DataSet extends ArrayList<Integer> {
 	}
 
 	/**
+	 * Changes number and calls the listener
+	 * 
+	 * @param i
+	 * @param val
+	 */
+	public void changeNumber(int i, int val) {
+		this.remove(i);
+		this.add(i, val);
+		updateGraph(i, val);
+	}
+
+	/**
 	 * Updates the bargraph attached to the dataset
 	 * 
 	 * @param i
