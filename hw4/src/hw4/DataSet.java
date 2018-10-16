@@ -20,8 +20,9 @@ public class DataSet extends ArrayList<Integer> {
 		this.add(i, newNum);
 	}
 	
-	public void updateGraph() {
-		barGraph.update(this);
+	public void updateGraph(int i,int val) {
+		System.out.println("index is "+ i + ". And number is "+ val);
+		barGraph.update(i,val);
 	}
 		
 }
