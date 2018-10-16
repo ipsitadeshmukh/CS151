@@ -7,11 +7,11 @@ import javax.swing.*;
 
 //The subject
 public class InputFrame extends JFrame {
-	
-	final int NUMBER_OF_FIELDS;
+
+	final int NUMBER_OF_FIELDS = 7;
 	DataSet numbers;
 	JLabel headLabel;
-	ArrayList<JTextField> inputs ;
+	ArrayList<JTextField> inputs;
 	JButton drawGraph;
 	JPanel mainPanel;
 	JPanel textPanel;
@@ -19,30 +19,37 @@ public class InputFrame extends JFrame {
 
 	public InputFrame() {
 
-		int[] initialValues = {1,1,1,1,1,1,1};
+		// Initialise the attributes
+		int[] initialValues = { 1, 1, 1, 1, 1, 1, 1 };
 		numbers = new DataSet(initialValues);
-		NUMBER_OF_FIELDS = 7;
 		mainPanel = new JPanel();
 		textPanel = new JPanel();
 		inputs = new ArrayList<JTextField>();
-		headLabel = new JLabel("Change numbers below and press enter ");	
+		headLabel = new JLabel("Change numbers below and press enter ");
+
 		mainPanel.setLayout(new BorderLayout());
+
+		// Create textfields
 		for (int i = 0; i < NUMBER_OF_FIELDS; i++) {
 			inputs.add(new JTextField(Integer.toString(numbers.get(i)), 10));
 			textPanel.add(inputs.get(i));
 		}
+
+		// Add Action Listener to the textfields
 		for (JTextField input : inputs) {
 			int index = inputs.indexOf(input);
-			System.out.println("index: "+ index);
 			input.addActionListener(event -> {
-				System.out.println("input.getText() = " + input.getText());
-				numbers.updateGraph(index,Integer.parseInt(input.getText()));
+				numbers.updateGraph(index, Integer.parseInt(input.getText()));
 			});
 		}
+
+		// Edit the components
 		textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
 		mainPanel.add(headLabel, BorderLayout.NORTH);
 		mainPanel.add(textPanel, BorderLayout.CENTER);
+
 		this.add(mainPanel);
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		pack();
 		setVisible(true);
@@ -52,6 +59,4 @@ public class InputFrame extends JFrame {
 		InputFrame inpf = new InputFrame();
 	}
 
-
 }
-

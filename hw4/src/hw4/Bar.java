@@ -12,17 +12,16 @@ public class Bar implements Icon {
 	final int WIDTH = 30;
 	int height;
 
-	
-	public Bar() {
-		height = 1;
-		value = Integer.toString(height);
-	}
-
 	public Bar(int h) {
 		height = h;
 		value = Integer.toString(h);
 	}
 
+	/**
+	 * Change height
+	 * 
+	 * @param h
+	 */
 	public void setHeight(int h) {
 		height = h;
 		value = Integer.toString(h);
@@ -30,13 +29,11 @@ public class Bar implements Icon {
 
 	@Override
 	public int getIconHeight() {
-		// TODO Auto-generated method stub
 		return height;
 	}
 
 	@Override
 	public int getIconWidth() {
-		// TODO Auto-generated method stub
 		return WIDTH;
 	}
 

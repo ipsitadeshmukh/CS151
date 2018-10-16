@@ -4,25 +4,27 @@ import java.util.ArrayList;
 
 import javax.swing.event.ChangeListener;
 
+//Data model
 public class DataSet extends ArrayList<Integer> {
 
-	BarGraph barGraph;
-	
+	BarGraph barGraph; // barGraph attached to DataSet
+
 	public DataSet(int[] ar) {
-		for(int i = 0; i< ar.length; i++) {
+		// Initialises dataset
+		for (int i = 0; i < ar.length; i++) {
 			this.add(ar[i]);
 		}
 		barGraph = new BarGraph(this);
-	}	
-	
-	public void changeNumber(int i, int newNum) {
-		this.remove(i);
-		this.add(i, newNum);
 	}
-	
-	public void updateGraph(int i,int val) {
-		System.out.println("index is "+ i + ". And number is "+ val);
-		barGraph.update(i,val);
+
+	/**
+	 * Updates the bargraph attached to the dataset
+	 * 
+	 * @param i
+	 * @param val
+	 */
+	public void updateGraph(int i, int val) {
+		barGraph.update(i, val);
 	}
-		
+
 }
