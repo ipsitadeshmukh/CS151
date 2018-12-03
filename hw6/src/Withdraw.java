@@ -1,13 +1,13 @@
-package hw6;
 
-public class Deposit implements Runnable {
+
+public class Withdraw implements Runnable {
 
 	BankAccount acc;
-	int deposit;
+	int withdrawal;
 
-	public Deposit(BankAccount ba, int amount) {
+	public Withdraw(BankAccount ba, int amount) {
 		acc = ba;
-		deposit = amount;
+		withdrawal = amount;
 	}
 
 	@Override
@@ -15,13 +15,14 @@ public class Deposit implements Runnable {
 		// TODO Auto-generated method stub
 		for (int i = 1; i < 11; i++) {
 			try {
-				acc.deposit(deposit);
+				acc.withdraw(withdrawal);
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
+
 	}
 
 }
